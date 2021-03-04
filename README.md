@@ -16,6 +16,8 @@ It's connected to a Sonoff flashed with Tasmota.  Here's an action video:
 
 https://drive.google.com/file/d/1PeLFT1BTsSvpWzPwtaUO8mOwSUeofcjw/view?usp=sharing
 
+![Action](https://media.giphy.com/media/YFp9OjdJbrhWmhINgQ/giphy.gif)
+
 #foreverremodel
 
 I claim no copyright or ownership of the horn sounds, nor the music played with them.
