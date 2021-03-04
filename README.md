@@ -14,9 +14,7 @@ https://www.amazon.com/gp/product/B00EEJX70I/ref=ppx_yo_dt_b_asin_title_o03_s00?
 
 It's connected to a Sonoff flashed with Tasmota.  Here's an action video:
 
-https://drive.google.com/file/d/1PeLFT1BTsSvpWzPwtaUO8mOwSUeofcjw/view?usp=sharing
-
-![Action](https://media.giphy.com/media/YFp9OjdJbrhWmhINgQ/giphy.gif)
+![Action](https://i.giphy.com/media/YFp9OjdJbrhWmhINgQ/giphy.webp)
 
 #foreverremodel
 
