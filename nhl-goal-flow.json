@@ -1,1 +1,240 @@
-[{"id":"be449c6d.a7ae1","type":"tab","label":"NHL goal","disabled":true,"info":""},{"id":"f137cc49.ac78d","type":"server-events","z":"be449c6d.a7ae1","name":"NHL","server":"cacdccbf.2b6e9","event_type":"nhl_goal","x":90,"y":140,"wires":[["681013d9.a2481c","f24621df.f6d41"]]},{"id":"681013d9.a2481c","type":"change","z":"be449c6d.a7ae1","name":"Set light to flash","rules":[{"t":"delete","p":"payload","pt":"msg"},{"t":"set","p":"entity_id","pt":"flow","to":"light.0x00124b0019e79f2a_light","tot":"str"},{"t":"set","p":"payload.entity_id","pt":"msg","to":"entity_id","tot":"flow"}],"action":"","property":"","from":"","to":"","reg":false,"x":280,"y":200,"wires":[["67c70a8.e2cf5f4"]]},{"id":"f24621df.f6d41","type":"change","z":"be449c6d.a7ae1","name":"Set Team ID","rules":[{"t":"set","p":"team_horn","pt":"flow","to":"$string(msg.payload.event.team_id)\t","tot":"jsonata"}],"action":"","property":"","from":"","to":"","reg":false,"x":270,"y":80,"wires":[["bc0859ad.dd4b78"]]},{"id":"67c70a8.e2cf5f4","type":"api-current-state","z":"be449c6d.a7ae1","name":"Get lights current state","server":"cacdccbf.2b6e9","version":1,"outputs":1,"halt_if":"","halt_if_type":"str","halt_if_compare":"is","override_topic":false,"entity_id":"","state_type":"str","state_location":"payload,entity_id","override_payload":"msg","entity_location":"previous_led_settings","override_data":"flow","blockInputOverrides":false,"x":510,"y":200,"wires":[["990cbcda.db37d"]]},{"id":"a7cede7b.8973f","type":"inject","z":"be449c6d.a7ae1","name":"Test Light","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":100,"y":260,"wires":[["681013d9.a2481c"]]},{"id":"bc0859ad.dd4b78","type":"api-call-service","z":"be449c6d.a7ae1","name":"Goal Horn","server":"cacdccbf.2b6e9","service_domain":"media_player","service":"play_media","data":"{\"entity_id\":\"media_player.media_room_speaker\",\"media_content_type\":\"audio/mp3\",\"media_content_id\":\"https://my.ui.nabu.casa/local/audio/goalhorns/{{flow.team_horn}}.mp3\"}","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":545,"y":80,"wires":[[]]},{"id":"990cbcda.db37d","type":"looptimer","z":"be449c6d.a7ae1","duration":"1","units":"Second","maxloops":"3","maxtimeout":"1","maxtimeoutunits":"Hour","name":"","x":740,"y":200,"wires":[["db1f93d0.c3ed6"],["5bea5a55.f69964"]]},{"id":"db1f93d0.c3ed6","type":"change","z":"be449c6d.a7ae1","name":"Set light entity ID","rules":[{"t":"delete","p":"payload","pt":"msg"},{"t":"set","p":"payload.data.entity_id","pt":"msg","to":"entity_id","tot":"flow"}],"action":"","property":"","from":"","to":"","reg":false,"x":970,"y":140,"wires":[["856a424c.91047"]]},{"id":"5bea5a55.f69964","type":"delay","z":"be449c6d.a7ae1","name":"","pauseType":"delay","timeout":"4","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"second","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":false,"x":940,"y":260,"wires":[["f1ce6214.95f0b"]]},{"id":"856a424c.91047","type":"api-call-service","z":"be449c6d.a7ae1","name":"Flash light for goal","server":"cacdccbf.2b6e9","service_domain":"light","service":"turn_on","data":"{\"rgb_color\":[252,181,20],\"brightness_pct\":100,\"flash\":\"short\"}","mergecontext":"","output_location":"","output_location_type":"none","mustacheAltTags":false,"x":1230,"y":140,"wires":[[]]},{"id":"f1ce6214.95f0b","type":"change","z":"be449c6d.a7ae1","name":"Restore light settings","rules":[{"t":"delete","p":"payload","pt":"msg"},{"t":"set","p":"payload.domain","pt":"msg","to":"light","tot":"str"},{"t":"set","p":"payload.service","pt":"msg","to":"turn_on","tot":"str"},{"t":"set","p":"payload.data.entity_id","pt":"msg","to":"entity_id","tot":"flow"},{"t":"set","p":"payload.data.rgb_color","pt":"msg","to":"previous_led_settings.attributes.rgb_color","tot":"flow"},{"t":"set","p":"payload.data.brightness","pt":"msg","to":"previous_led_settings.attributes.brightness","tot":"flow"}],"action":"","property":"","from":"","to":"","reg":false,"x":1140,"y":260,"wires":[["e5e16b5c.325068"]]},{"id":"e5e16b5c.325068","type":"api-call-service","z":"be449c6d.a7ae1","name":"","server":"cacdccbf.2b6e9","service_domain":"light","service":"turn_on","data":"","mergecontext":"","output_location":"payload","output_location_type":"msg","mustacheAltTags":true,"x":1370,"y":260,"wires":[[]]},{"id":"cacdccbf.2b6e9","type":"server","z":"","name":"Home Assistant","legacy":false,"hassio":false,"rejectUnauthorizedCerts":true,"ha_boolean":"y|yes|true|on|home|open","connectionDelay":true}]
+[
+    {
+        "id": "66da163b.61ab68",
+        "type": "server-events",
+        "z": "de8bfe3.4ac5e",
+        "name": "NHL",
+        "server": "cacdccbf.2b6e9",
+        "event_type": "nhl_goal",
+        "x": 70,
+        "y": 520,
+        "wires": [
+            [
+                "db76f3f8.09eec"
+            ]
+        ]
+    },
+    {
+        "id": "db76f3f8.09eec",
+        "type": "change",
+        "z": "de8bfe3.4ac5e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "team_horn",
+                "pt": "flow",
+                "to": "$string(msg.payload.event.team_id)\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 520,
+        "wires": [
+            [
+                "a823844.8b42978"
+            ]
+        ]
+    },
+    {
+        "id": "a823844.8b42978",
+        "type": "api-current-state",
+        "z": "de8bfe3.4ac5e",
+        "name": "Goal Horn Status",
+        "server": "cacdccbf.2b6e9",
+        "version": 1,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "override_topic": false,
+        "entity_id": "input_boolean.goal_horn",
+        "state_type": "str",
+        "state_location": "",
+        "override_payload": "none",
+        "entity_location": "",
+        "override_data": "none",
+        "blockInputOverrides": false,
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "c414b5e6.b2ebd8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a19365d7.abb198",
+        "type": "inject",
+        "z": "de8bfe3.4ac5e",
+        "name": "test",
+        "props": [
+            {
+                "p": "payload.event.team_id",
+                "v": "14",
+                "vt": "num"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 80,
+        "y": 600,
+        "wires": [
+            [
+                "db76f3f8.09eec"
+            ]
+        ]
+    },
+    {
+        "id": "c414b5e6.b2ebd8",
+        "type": "delay",
+        "z": "de8bfe3.4ac5e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "7",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 662,
+        "y": 520,
+        "wires": [
+            [
+                "c5fe70c1.8f833",
+                "adee6dbb.823ad"
+            ]
+        ]
+    },
+    {
+        "id": "c5fe70c1.8f833",
+        "type": "api-call-service",
+        "z": "de8bfe3.4ac5e",
+        "name": "Goal Light On",
+        "server": "cacdccbf.2b6e9",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "switch",
+        "service": "turn_on",
+        "entityId": "switch.extra1",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 874,
+        "y": 480,
+        "wires": [
+            [
+                "dd72e229.52927"
+            ]
+        ]
+    },
+    {
+        "id": "adee6dbb.823ad",
+        "type": "api-call-service",
+        "z": "de8bfe3.4ac5e",
+        "name": "Goal Horn",
+        "server": "cacdccbf.2b6e9",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "media_player",
+        "service": "play_media",
+        "entityId": "media_player.media_room_speaker",
+        "data": "{\"media_content_type\":\"audio/mp3\",\"media_content_id\":\"https://fm3yl0om31wfd6yzocxjl9ezm7t6evbg.ui.nabu.casa/local/audio/goalhorns/{{flow.team_horn}}.mp3\"}",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 864,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd72e229.52927",
+        "type": "delay",
+        "z": "de8bfe3.4ac5e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1058,
+        "y": 480,
+        "wires": [
+            [
+                "20369e00.114212"
+            ]
+        ]
+    },
+    {
+        "id": "20369e00.114212",
+        "type": "api-call-service",
+        "z": "de8bfe3.4ac5e",
+        "name": "Goal Light Off",
+        "server": "cacdccbf.2b6e9",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "switch",
+        "service": "turn_off",
+        "entityId": "switch.extra1",
+        "data": "",
+        "dataType": "json",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 1242,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c9d1329f.7ff31",
+        "type": "comment",
+        "z": "de8bfe3.4ac5e",
+        "name": "Hockey Goal",
+        "info": "",
+        "x": 90,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "cacdccbf.2b6e9",
+        "type": "server",
+        "name": "Home Assistant",
+        "legacy": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]

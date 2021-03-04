@@ -1,0 +1,74 @@
+[
+    {
+        "id": "7b9c5749.560938",
+        "type": "comment",
+        "z": "de8bfe3.4ac5e",
+        "name": "Rest Hockey Goal Horn to On",
+        "info": "",
+        "x": 160,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "80b3d26c.a8d43",
+        "type": "inject",
+        "z": "de8bfe3.4ac5e",
+        "name": "Reset Goal Horn",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 09 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "e350ad10.03568"
+            ]
+        ]
+    },
+    {
+        "id": "e350ad10.03568",
+        "type": "api-call-service",
+        "z": "de8bfe3.4ac5e",
+        "name": "Re-enable Horn",
+        "server": "cacdccbf.2b6e9",
+        "version": 1,
+        "debugenabled": false,
+        "service_domain": "input_boolean",
+        "service": "turn_on",
+        "entityId": "input_boolean.goal_horn",
+        "data": "",
+        "dataType": "jsonata",
+        "mergecontext": "",
+        "output_location": "",
+        "output_location_type": "none",
+        "mustacheAltTags": false,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cacdccbf.2b6e9",
+        "type": "server",
+        "name": "Home Assistant",
+        "legacy": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true
+    }
+]
