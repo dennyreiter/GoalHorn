@@ -11,8 +11,11 @@ You will also want to (unless you don't and you can remove it,) create an input_
 
 This is the light I currently use for goals:
 https://www.amazon.com/gp/product/B00EEJX70I/ref=ppx_yo_dt_b_asin_title_o03_s00?ie=UTF8&psc=1
+
 It's connected to a Sonoff flashed with Tasmota.  Here's an action video:
+
 https://photos.app.goo.gl/GXHgTAsxUSBPwQb47
 
+#foreverremodel
 
 I claim no copyright or ownership of the horn sounds, nor the music played with them.
